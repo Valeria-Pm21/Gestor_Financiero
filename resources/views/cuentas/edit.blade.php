@@ -1,67 +1,125 @@
+
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200">
-            Editar cuenta
-        </h2>
+        <div>
+            <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
+                Editar cuenta
+            </h2>
+            <p class="text-sm text-gray-500 mt-1">
+                Actualiza la información de tu cuenta financiera.
+            </p>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 p-6 shadow-sm sm:rounded-lg">
+    <div class="py-8 bg-[#FFF4F8] min-h-screen">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                @if ($errors->any())
-                    <div class="mb-6 p-4 bg-red-100 text-red-800 rounded">
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-[#8652C7]">
+                    Modificar cuenta financiera
+                </h3>
+                <p class="text-gray-500 mt-1">
+                    Realiza los cambios que necesites en los datos de tu cuenta.
+                </p>
+            </div>
 
-                <form method="POST" action="{{ route('cuentas.update', $cuenta) }}">
-                    @csrf
-                    @method('PUT')
+            <div class="bg-white rounded-xl shadow-sm border border-[#F8DCE9] overflow-hidden">
 
-                    <div class="mb-4">
-                        <label class="block mb-2">Nombre</label>
-                        <input type="text" name="nombre"
-                               value="{{ old('nombre', $cuenta->nombre) }}"
-                               class="w-full rounded border-gray-300" required>
-                    </div>
+                <div class="bg-[#F9EDFF] border-b border-[#E9D8FF] px-6 py-4">
+                    <h3 class="text-lg font-semibold text-[#7041AC]">
+                        Información de la cuenta
+                    </h3>
+                    <p class="text-sm text-[#9876BC] mt-1">
+                        Modifica los campos que deseas actualizar.
+                    </p>
+                </div>
 
-                    <div class="mb-4">
-                        <label class="block mb-2">Descripción</label>
-                        <textarea name="descripcion"
-                                  class="w-full rounded border-gray-300">{{ old('descripcion', $cuenta->descripcion) }}</textarea>
-                    </div>
+                <div class="p-6">
 
-                    <div class="mb-4">
-                        <label class="block mb-2">Saldo</label>
-                        <input type="number" name="saldo" step="0.01" min="0"
-                               value="{{ old('saldo', $cuenta->saldo) }}"
-                               class="w-full rounded border-gray-300" required>
-                    </div>
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-[#FFE0D8] text-[#D96D59] rounded-xl border border-[#FFD0C4]">
+                            <p class="font-semibold mb-2">Revisa los siguientes datos:</p>
+                            <ul class="list-disc list-inside text-sm">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                    <div class="mb-4">
-                        <label class="block mb-2">Moneda</label>
-                        <input type="text" name="moneda"
-                               value="{{ old('moneda', $cuenta->moneda) }}"
-                               maxlength="10"
-                               class="w-full rounded border-gray-300" required>
-                    </div>
+                    <form method="POST" action="{{ route('cuentas.update', $cuenta) }}">
+                        @csrf
+                        @method('PUT')
 
-                    <button type="submit"
-                            class="bg-indigo-600 text-white px-4 py-2 rounded">
-                        Actualizar
-                    </button>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <a href="{{ route('cuentas.index') }}"
-                       class="ml-2 text-gray-600 underline">
-                        Cancelar
-                    </a>
-                </form>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Nombre de la cuenta
+                                </label>
+                                <input type="text" name="nombre"
+                                       value="{{ old('nombre', $cuenta->nombre) }}"
+                                       class="w-full rounded-lg border-[#F2C9DC] focus:border-[#A77BDD] focus:ring-[#A77BDD]"
+                                       required>
+                                @error('nombre')
+                                    <p class="text-sm text-[#D96D59] mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
 
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Saldo
+                                </label>
+                                <input type="number" name="saldo" step="0.01" min="0"
+                                       value="{{ old('saldo', $cuenta->saldo) }}"
+                                       class="w-full rounded-lg border-[#F2C9DC] focus:border-[#A77BDD] focus:ring-[#A77BDD]"
+                                       required>
+                                @error('saldo')
+                                    <p class="text-sm text-[#D96D59] mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Descripción
+                                </label>
+                                <textarea name="descripcion" rows="3"
+                                          class="w-full rounded-lg border-[#F2C9DC] focus:border-[#A77BDD] focus:ring-[#A77BDD]">{{ old('descripcion', $cuenta->descripcion) }}</textarea>
+                                @error('descripcion')
+                                    <p class="text-sm text-[#D96D59] mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Moneda
+                                </label>
+                                <input type="text" name="moneda"
+                                       value="{{ old('moneda', $cuenta->moneda) }}"
+                                       maxlength="10"
+                                       class="w-full rounded-lg border-[#F2C9DC] focus:border-[#A77BDD] focus:ring-[#A77BDD]"
+                                       required>
+                                @error('moneda')
+                                    <p class="text-sm text-[#D96D59] mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                        </div>
+
+                        <div class="flex flex-wrap gap-3 mt-8 pt-6 border-t border-[#FCEAF1]">
+                            <button type="submit"
+                                    class="px-6 py-2.5 bg-[#E98BB5] text-white font-semibold rounded-lg hover:bg-[#D978A5] transition shadow-sm">
+                                Actualizar cuenta
+                            </button>
+
+                            <a href="{{ route('cuentas.index') }}"
+                               class="px-6 py-2.5 bg-[#E9D8FF] text-[#7041AC] font-semibold rounded-lg hover:bg-[#DCC5F7] transition">
+                                Cancelar
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
