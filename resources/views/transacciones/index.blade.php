@@ -1,0 +1,107 @@
+
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Transacciones
+        </h2>
+    </x-slot>
+
+    <div class="py-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            @if (session('success'))
+                <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <div class="bg-white shadow-sm rounded-lg p-6">
+
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                        Listado de transacciones
+                    </h3>
+
+                    <a href="{{ route('transacciones.create') }}"
+                       class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                        Nueva transacción
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left">Cuenta</th>
+                                <th class="px-4 py-3 text-left">Categoría</th>
+                                <th class="px-4 py-3 text-left">Tipo</th>
+                                <th class="px-4 py-3 text-left">Monto</th>
+                                <th class="px-4 py-3 text-left">Fecha</th>
+                                <th class="px-4 py-3 text-left">Descripción</th>
+                                <th class="px-4 py-3 text-left">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-200">
+                            @forelse ($transacciones as $transaccion)
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        {{ $transaccion->cuenta->nombre ?? 'Sin cuenta' }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ $transaccion->categoria->nombre ?? 'Sin categoría' }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ ucfirst($transaccion->tipo) }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        ${{ number_format($transaccion->monto, 0, ',', '.') }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ $transaccion->fecha }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ $transaccion->descripcion ?? 'Sin descripción' }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        <div class="flex gap-2">
+                                            <a href="{{ route('transacciones.edit', $transaccion) }}"
+                                               class="text-blue-600 hover:underline">
+                                                Editar
+                                            </a>
+
+                                            <form action="{{ route('transacciones.destroy', $transaccion) }}"
+                                                  method="POST"
+                                                  onsubmit="return confirm('¿Deseas eliminar esta transacción?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="text-red-600 hover:underline">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="px-4 py-6 text-center text-gray-500">
+                                        No hay transacciones registradas.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</x-app-layout>

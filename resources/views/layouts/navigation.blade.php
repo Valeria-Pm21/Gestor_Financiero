@@ -1,3 +1,4 @@
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,21 +13,23 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-<x-nav-link :href="route('categorias.index')"
-    :active="request()->routeIs('categorias.*')">
-    Categorías
-</x-nav-link>
+                        Dashboard
+                    </x-nav-link>
 
-<x-nav-link :href="route('cuentas.index')"
-    :active="request()->routeIs('cuentas.*')">
-    Cuentas
-</x-nav-link>
+                    <x-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.*')">
+                        Categorías
+                    </x-nav-link>
 
-<x-nav-link :href="route('transacciones.index')"
-    :active="request()->routeIs('transacciones.*')">
-    Transacciones
-</x-nav-link>                    </x-nav-link>
+                    <x-nav-link :href="route('cuentas.index')" :active="request()->routeIs('cuentas.*')">
+                        Cuentas
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('transacciones.index')" :active="request()->routeIs('transacciones.*')">
+                        Transacciones
+                    </x-nav-link>
+
                 </div>
             </div>
 
@@ -55,8 +58,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -79,21 +81,23 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-<x-responsive-nav-link :href="route('categorias.index')"
-    :active="request()->routeIs('categorias.*')">
-    Categorías
-</x-responsive-nav-link>
+                Dashboard
+            </x-responsive-nav-link>
 
-<x-responsive-nav-link :href="route('cuentas.index')"
-    :active="request()->routeIs('cuentas.*')">
-    Cuentas
-</x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.*')">
+                Categorías
+            </x-responsive-nav-link>
 
-<x-responsive-nav-link :href="route('transacciones.index')"
-    :active="request()->routeIs('transacciones.*')">
-    Transacciones
-        </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('cuentas.index')" :active="request()->routeIs('cuentas.*')">
+                Cuentas
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('transacciones.index')" :active="request()->routeIs('transacciones.*')">
+                Transacciones
+            </x-responsive-nav-link>
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -113,8 +117,7 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                        onclick="event.preventDefault(); this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>

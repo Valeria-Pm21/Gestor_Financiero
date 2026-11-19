@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('categorias', CategoriaController::class);
     Route::resource('cuentas', CuentaController::class);
-    Route::resource('transacciones', TransaccionController::class);
-});
+    Route::resource('transacciones', TransaccionController::class)
+    ->parameters(['transacciones' => 'transaccion']);});
 
 require __DIR__.'/auth.php';
