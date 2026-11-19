@@ -1,78 +1,101 @@
+
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Cuentas
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 p-6 shadow-sm sm:rounded-lg">
 
-                @if (session('success'))
-                    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
-                        {{ session('success') }}
-                    </div>
-                @endif
+            @if (session('success'))
+                <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                @if (session('error'))
-                    <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
-                        {{ session('error') }}
-                    </div>
-                @endif
+            @if (session('error'))
+                <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-                <a href="{{ route('cuentas.create') }}"
-                   class="bg-indigo-600 text-white px-4 py-2 rounded">
-                    Nueva cuenta
-                </a>
+            <div class="bg-white shadow-sm rounded-lg p-6">
 
-                <table class="w-full mt-6 text-left">
-                    <thead>
-                        <tr>
-                            <th class="py-2">Nombre</th>
-                            <th class="py-2">Descripción</th>
-                            <th class="py-2">Saldo</th>
-                            <th class="py-2">Moneda</th>
-                            <th class="py-2">Acciones</th>
-                        </tr>
-                    </thead>
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800">
+                        Listado de cuentas
+                    </h3>
 
-                    <tbody>
-                        @forelse ($cuentas as $cuenta)
-                            <tr class="border-t border-gray-200 dark:border-gray-700">
-                                <td class="py-2">{{ $cuenta->nombre }}</td>
-                                <td class="py-2">{{ $cuenta->descripcion }}</td>
-                                <td class="py-2">
-                                    {{ $cuenta->moneda }} {{ number_format($cuenta->saldo, 2, ',', '.') }}
-                                </td>
-                                <td class="py-2">{{ $cuenta->moneda }}</td>
-                                <td class="py-2 flex gap-3">
-                                    <a href="{{ route('cuentas.edit', $cuenta) }}"
-                                       class="text-indigo-500 underline">
-                                        Editar
-                                    </a>
+                    <a href="{{ route('cuentas.create') }}"
+                       class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                        Nueva cuenta
+                    </a>
+                </div>
 
-                                    <form method="POST"
-                                          action="{{ route('cuentas.destroy', $cuenta) }}"
-                                          onsubmit="return confirm('¿Eliminar esta cuenta?')">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="text-red-500 underline">
-                                            Eliminar
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <td colspan="5" class="py-4 text-center">
-                                    No hay cuentas registradas.
-                                </td>
+                                <th class="px-4 py-3 text-left">Nombre</th>
+                                <th class="px-4 py-3 text-left">Descripción</th>
+                                <th class="px-4 py-3 text-left">Saldo</th>
+                                <th class="px-4 py-3 text-left">Moneda</th>
+                                <th class="px-4 py-3 text-left">Acciones</th>
                             </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-200">
+                            @forelse ($cuentas as $cuenta)
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        {{ $cuenta->nombre }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ $cuenta->descripcion ?? 'Sin descripción' }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ $cuenta->moneda }} {{ number_format($cuenta->saldo, 2, ',', '.') }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        {{ $cuenta->moneda }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        <div class="flex gap-2">
+                                            <a href="{{ route('cuentas.edit', $cuenta) }}"
+                                               class="text-blue-600 hover:underline">
+                                                Editar
+                                            </a>
+
+                                            <form method="POST"
+                                                  action="{{ route('cuentas.destroy', $cuenta) }}"
+                                                  onsubmit="return confirm('¿Eliminar esta cuenta?')">
+                                                @csrf
+                                                @method('DELETE')
+
+                                                <button type="submit"
+                                                        class="text-red-600 hover:underline">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-4 py-6 text-center text-gray-500">
+                                        No hay cuentas registradas.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         </div>
