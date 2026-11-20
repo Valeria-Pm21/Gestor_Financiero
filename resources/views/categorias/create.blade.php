@@ -1,36 +1,18 @@
 
 <x-app-layout>
-    <x-slot name="header">
-        <div>
-            <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-                Nueva categoría
-            </h2>
-            <p class="text-sm text-gray-500 mt-1">
-                Organiza tus ingresos y gastos.
-            </p>
-        </div>
-    </x-slot>
 
     <div class="py-8 bg-[#FFF4F8] min-h-screen">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="mb-6">
-                <h3 class="text-2xl font-bold text-[#8652C7]">
-                    Crear categoría financiera
-                </h3>
-                <p class="text-gray-500 mt-1">
-                    Registra una categoría para clasificar tus movimientos.
-                </p>
-            </div>
 
             <div class="bg-white rounded-xl shadow-sm border border-[#F8DCE9] overflow-hidden">
 
                 <div class="bg-[#F9EDFF] border-b border-[#E9D8FF] px-6 py-4">
                     <h3 class="text-lg font-semibold text-[#7041AC]">
-                        Información de la categoría
+                        Crear categoría financiera
                     </h3>
                     <p class="text-sm text-[#9876BC] mt-1">
-                        Completa los datos solicitados.
+                        Registra una categoría para clasificar tus movimientos.
                     </p>
                 </div>
 

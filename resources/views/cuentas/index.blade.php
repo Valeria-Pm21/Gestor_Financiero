@@ -1,14 +1,5 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div>
-            <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-                Mis cuentas
-            </h2>
-            <p class="text-sm text-gray-500 mt-1">
-                Consulta y administra el dinero de tus cuentas.
-            </p>
-        </div>
-    </x-slot>
+    
 
     <div class="py-8 bg-[#FFF4F8] min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
