@@ -30,14 +30,8 @@
                                 En todas tus cuentas
                             </p>
                         </div>
-                        <div class="bg-[#E9D8FF] text-[#8652C7] rounded-lg p-3">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V6m0 2v8m0 0v2m0-2c-1.657 0-3-.895-3-2">
-                                </path>
-                            </svg>
+                        <<div class="bg-[#E9D8FF] text-[#8652C7] rounded-lg w-12 h-12 flex items-center justify-center">
+                             <span class="text-2xl font-bold leading-none">$</span>
                         </div>
                     </div>
                 </div>
