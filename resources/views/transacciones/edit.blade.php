@@ -1,9 +1,7 @@
-
 <x-app-layout>
 
     <div class="py-8 bg-[#FFF4F8] min-h-screen">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
 
             <div class="bg-white rounded-xl shadow-sm border border-[#F8DCE9] overflow-hidden">
 
@@ -33,7 +31,9 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('transacciones.update', $transaccion) }}" method="POST">
+                    <form action="{{ route('transacciones.update', $transaccion) }}"
+                          method="POST"
+                          id="formTransaccion">
                         @csrf
                         @method('PUT')
 
@@ -113,13 +113,16 @@
                                     Monto
                                 </label>
 
-                                <input type="number"
-                                       name="monto"
-                                       step="0.01"
-                                       min="0.01"
+                                <input type="text"
+                                       id="monto_visual"
+                                       inputmode="decimal"
                                        value="{{ old('monto', $transaccion->monto) }}"
+                                       placeholder="Ej. 150.000"
+                                       autocomplete="off"
                                        class="w-full rounded-lg border-[#F2C9DC] focus:border-[#A77BDD] focus:ring-[#A77BDD]"
                                        required>
+
+                                <input type="hidden" name="monto" id="monto">
 
                                 @error('monto')
                                     <p class="text-sm text-[#D96D59] mt-1">{{ $message }}</p>
@@ -180,4 +183,46 @@
             </div>
         </div>
     </div>
+
+    {{-- Formato automático del monto --}}
+    <script>
+        const montoVisual = document.getElementById('monto_visual');
+        const montoReal = document.getElementById('monto');
+        const formTransaccion = document.getElementById('formTransaccion');
+
+        function formatearMonto() {
+            let valor = montoVisual.value;
+
+            valor = valor.replace(/[^\d,]/g, '');
+
+            const partes = valor.split(',');
+
+            let entero = partes[0];
+            let decimal = partes.length > 1 ? partes[1] : null;
+
+            entero = entero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+            if (decimal !== null) {
+                decimal = decimal.substring(0, 2);
+                montoVisual.value = entero + ',' + decimal;
+            } else {
+                montoVisual.value = entero;
+            }
+        }
+
+        montoVisual.addEventListener('input', formatearMonto);
+
+        // Mostrar el monto existente con separadores de miles.
+        formatearMonto();
+
+        formTransaccion.addEventListener('submit', function () {
+            let valor = montoVisual.value;
+
+            valor = valor.replace(/\./g, '');
+            valor = valor.replace(',', '.');
+
+            montoReal.value = valor;
+        });
+    </script>
+
 </x-app-layout>

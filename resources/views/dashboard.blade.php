@@ -30,7 +30,7 @@
                                 En todas tus cuentas
                             </p>
                         </div>
-                        <<div class="bg-[#E9D8FF] text-[#8652C7] rounded-lg w-12 h-12 flex items-center justify-center">
+                        <div class="bg-[#E9D8FF] text-[#8652C7] rounded-lg w-12 h-12 flex items-center justify-center">
                              <span class="text-2xl font-bold leading-none">$</span>
                         </div>
                     </div>
