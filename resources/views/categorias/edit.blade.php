@@ -1,11 +1,8 @@
 
 <x-app-layout>
     
-
     <div class="py-8 bg-[#FFF4F8] min-h-screen">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            
 
             <div class="bg-white rounded-xl shadow-sm border border-[#F8DCE9] overflow-hidden">
 
